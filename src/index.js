@@ -1,19 +1,21 @@
 import React from 'react';
+import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
-import store from './store'
+import App from './App';
+import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Counter from "./features/Counter/Counter"
-import './App.scss';
+import configStorage from './store'
 
-const App = () => {
-  return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <Counter />
-      </PersistGate>
-    </Provider>
-  );
-};
+const { store, persistor } = configStorage();
 
-export default App;
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
+      <App />
+    </PersistGate>
+  </Provider>
+);
+
+reportWebVitals();
